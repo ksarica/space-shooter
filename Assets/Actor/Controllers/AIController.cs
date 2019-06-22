@@ -27,10 +27,11 @@ namespace KS.Actor.Controllers
         // Update is called once per frame
         void Update()
         {
-            float diffBefore = deathLineY - this.transform.position.y;
-            this.movementSystem.Move(direction);
-            float diffAfter = deathLineY - this.transform.position.y;
-            if(diffAfter * diffBefore < 0)
+            // below code is for if the bullet or asteroid , if they pass the deathLine , they will be get hit by maxValue .
+            float diffBefore = deathLineY - this.transform.position.y; // before: (1,-2) diffBefore: -3 - (-2) = -1
+            this.movementSystem.Move(direction);  
+            float diffAfter = deathLineY - this.transform.position.y; // after: (1,-3) diffAfter: -3 - (-3) = 0
+            if(diffAfter * diffBefore < 0) // -1 * 0 = 0: false
             {
                 healthSystem.GetHit(float.MaxValue);
             }
@@ -41,6 +42,11 @@ namespace KS.Actor.Controllers
             healthSystem.ResetHitPoint();
             this.gameObject.transform.position = position;
             this.gameObject.SetActive(true);
+            AudioSource audioSource = this.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                audioSource.Play();
+            }
         }
     }
 }

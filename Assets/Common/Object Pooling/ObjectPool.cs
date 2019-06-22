@@ -17,7 +17,7 @@ namespace Assets.Common.ObjectPooling
             this.prefab = prefab;
         }
 
-        public void CreateAtPosition(Vector3 position)
+        public void CreateAtPosition(Vector3 position, Quaternion rotation)
         {
             IPoolableObject available = GetNextAvailableObject();
             if (available != null)
@@ -27,14 +27,14 @@ namespace Assets.Common.ObjectPooling
             }
             else
             {
-                pool.Add(GameObject.Instantiate(prefab, position, Quaternion.identity));
+                pool.Add(GameObject.Instantiate(prefab, position, rotation));
                 Debug.Log("Create New");
-            } 
+            }
         }
 
         private IPoolableObject GetNextAvailableObject()
         {
-            foreach(GameObject go in pool)
+            foreach (GameObject go in pool)
             {
                 if (!go.activeSelf)
                 {

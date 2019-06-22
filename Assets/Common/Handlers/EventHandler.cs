@@ -8,6 +8,16 @@ namespace KS.Common
         public delegate void OnCoreGameEvent(string eventName);
         public event OnCoreGameEvent CoreGameEvents;
 
+        public delegate void OnDeathOccurred(GameObject go);
+        public event OnDeathOccurred OnDeath;
+
+        public delegate void OnShotFired(); // STEP 1 
+        public event OnShotFired OnShoot; // STEP 1
+
+        public delegate void OnHitOccurred(GameObject go); // STEP 1
+        public event OnHitOccurred OnHit; // STEP 1
+
+
         public static EventHandler instance = null;
 
         private void Awake()
@@ -15,6 +25,7 @@ namespace KS.Common
             if (instance == null)
             {
                 instance = this;
+
             }
             else
             {
@@ -41,6 +52,30 @@ namespace KS.Common
                 CoreGameEvents(eventName);
             }
 
+        }
+
+        public void FireOnDeathEvent(GameObject go)
+        {
+            if (OnDeath != null && OnDeath.GetInvocationList().Length > 0)
+            {
+                OnDeath(go);
+            }
+        }
+
+        public void FireOnShotEvent() // STEP 2
+        {
+            if (OnShoot != null && OnShoot.GetInvocationList().Length > 0)
+            {
+                OnShoot();
+            }
+        }
+
+        public void FireOnHitEvent(GameObject go)
+        {
+            if (OnHit != null && OnHit.GetInvocationList().Length > 0)
+            {
+                OnHit(go);
+            }
         }
     }
 }

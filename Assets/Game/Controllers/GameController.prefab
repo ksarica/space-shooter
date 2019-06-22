@@ -58,5 +58,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidPrefab: {fileID: 5522681602893146682, guid: cba8227b749733c4e807bd7fe8a1c864,
     type: 3}
-  delayInSeconds: 3
+  powerUpPrefab1: {fileID: 6511726859452697291, guid: 02978d5646fc73f49a755c68d90c379c,
+    type: 3}
+  powerUpPrefab2: {fileID: 6511726859452697291, guid: 469fd20fd7d4b02419fc59cafb846aed,
+    type: 3}
+  delayInSeconds: 1.5
   spawnIntervalInSeconds: 1
+  spawnRange:
+    min: -4
+    max: 4
