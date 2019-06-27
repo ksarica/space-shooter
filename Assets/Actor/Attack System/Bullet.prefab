@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2672186130086504379}
-  - component: {fileID: 728803546554412182}
   - component: {fileID: 1439435354346250161}
   - component: {fileID: 5046723783624981545}
   - component: {fileID: 7869548662026087691}
@@ -40,18 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &728803546554412182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2672186130086504376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16aa837de5ea1c4c854f34a4c7627da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1439435354346250161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
+  actorType: 2
 --- !u!114 &5046723783624981545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +99,7 @@ MonoBehaviour:
   maxHitPoint: 1
   canBeDamaged: 0
   canBeCollected: 0
+  deathFX: {fileID: 0}
 --- !u!114 &1000620840905830862
 MonoBehaviour:
   m_ObjectHideFlags: 0

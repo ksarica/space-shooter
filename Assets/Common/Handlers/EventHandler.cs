@@ -1,81 +1,68 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace KS.Common
+using System.Linq;
+
+
+namespace KS.Common.GameEvents
 {
+    public enum GameEventType
+    {
+        OnPlayerDeath, // Load scene to EndGameMenu
+        OnPlayerHealthChanged, // Update the hitPoint
+        OnPlayerCollidedWithAsteroid, // Update the hitPoint of the player
+        OnScoreChanged, // Update the currentScore.Text value
+        OnBestScoreChanged, // Update the bestscore.Text value
+        OnBulletShotChanged, // Update the bulletShot value
+        OnBulletCollidedWithAsteroid, // Update bulletSuccessful value
+        OnAsteroidHit, // 
+        OnAsteroidDestroyed, // Update currentScore value
+        OnPowerUpCollected, // Give something to player
+        OnPowerUpActive, 
+        OnGoldCollected, // Update gold value of the player
+        OnGoldScoreChanged 
+    }
+
     public class EventHandler : MonoBehaviour
     {
-        public delegate void OnCoreGameEvent(string eventName);
-        public event OnCoreGameEvent CoreGameEvents;
-
-        public delegate void OnDeathOccurred(GameObject go);
-        public event OnDeathOccurred OnDeath;
-
-        public delegate void OnShotFired(); // STEP 1 
-        public event OnShotFired OnShoot; // STEP 1
-
-        public delegate void OnHitOccurred(GameObject go); // STEP 1
-        public event OnHitOccurred OnHit; // STEP 1
-
-
         public static EventHandler instance = null;
+        private Dictionary<GameEventType, GameEvent> gameEventCache;
 
         private void Awake()
         {
             if (instance == null)
             {
                 instance = this;
-
+                DontDestroyOnLoad(this.gameObject); 
+                gameEventCache = new Dictionary<GameEventType, GameEvent>();
+                GameEventType[] allEventTypes = (GameEventType[])Enum.GetValues(typeof(GameEventType)).Cast<GameEventType>();
+                foreach (GameEventType currentEventType in allEventTypes)
+                {
+                    gameEventCache.Add(currentEventType, new GameEvent());
+                }
             }
             else
             {
                 Destroy(this.gameObject);
             }
         }
-        // Start is called before the first frame update
-        void Start()
+
+        public void Subscribe(GameEventType gameEventType, OnGameEventPublished callback)
         {
-            //coreGameEvents += OnGameEventFired;
+            gameEventCache[gameEventType] += callback;
         }
 
-
-        // Update is called once per frame
-        void Update()
+        public void Unsubscribe(GameEventType gameEventType, OnGameEventPublished callback)
         {
-
+            gameEventCache[gameEventType] -= callback;
         }
 
-        public void FireCoreGameEvent(string eventName)
+        public void PublishGameEvent(GameEventType gameEventType, string[] eventData)
         {
-            if (CoreGameEvents != null && CoreGameEvents.GetInvocationList().Length > 0)
-            {
-                CoreGameEvents(eventName);
-            }
-
-        }
-
-        public void FireOnDeathEvent(GameObject go)
-        {
-            if (OnDeath != null && OnDeath.GetInvocationList().Length > 0)
-            {
-                OnDeath(go);
-            }
-        }
-
-        public void FireOnShotEvent() // STEP 2
-        {
-            if (OnShoot != null && OnShoot.GetInvocationList().Length > 0)
-            {
-                OnShoot();
-            }
-        }
-
-        public void FireOnHitEvent(GameObject go)
-        {
-            if (OnHit != null && OnHit.GetInvocationList().Length > 0)
-            {
-                OnHit(go);
-            }
+            gameEventCache[gameEventType].Publish(eventData);
         }
     }
+
 }
+

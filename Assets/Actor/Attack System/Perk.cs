@@ -13,10 +13,5 @@ public class Perk : MonoBehaviour
     [SerializeField] private bool doubleGunActive;
     public bool DoubleGunActive { get => doubleGunActive; }
 
-    public Perk(float dur,float rate,bool doubleGun)
-    {
-        this.duration = dur;
-        this.bonusAttackRate = rate;
-        this.doubleGunActive = doubleGun;
-    }
+    
 }

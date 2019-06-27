@@ -7,6 +7,7 @@ using Assets.Common.ObjectPooling;
 public class LevelController : MonoBehaviour
 {
     [SerializeField] private GameObject asteroidPrefab;
+    [SerializeField] private GameObject goldPrefab;
     [SerializeField] private GameObject powerUpPrefab1;
     [SerializeField] private GameObject powerUpPrefab2;
     [SerializeField] private float delayInSeconds;
@@ -15,6 +16,7 @@ public class LevelController : MonoBehaviour
     private ObjectPool asteroidPool;
     private ObjectPool powerUpPool1;
     private ObjectPool powerUpPool2;
+    private ObjectPool goldPool;
 
 
     [Serializable]
@@ -30,6 +32,7 @@ public class LevelController : MonoBehaviour
         asteroidPool = new ObjectPool(asteroidPrefab);
         powerUpPool1 = new ObjectPool(powerUpPrefab1);
         powerUpPool2 = new ObjectPool(powerUpPrefab2);
+        goldPool = new ObjectPool(goldPrefab);
         StartCoroutine(Delay(delayInSeconds));
     }
 
@@ -55,6 +58,10 @@ public class LevelController : MonoBehaviour
             {
                 powerUpPool2.CreateAtPosition(new Vector3(UnityEngine.Random.Range(spawnRange.min, spawnRange.max), 20, 0), Quaternion.identity); // you have to add UnityEngine because there is two random functions first one is Unity Random the other is C# random itself
             }
+        }
+        else if(dice >= 5 && dice < 9)
+        {
+            goldPool.CreateAtPosition(new Vector3(UnityEngine.Random.Range(spawnRange.min, spawnRange.max), 20, 0), Quaternion.identity);
         }
         else
         {

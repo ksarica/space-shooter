@@ -3,23 +3,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EventHandler = KS.Common.EventHandler;
+using KS.Common.GameEvents;
+using EventHandler = KS.Common.GameEvents.EventHandler;
 
 namespace KS.Actor.Attack
 {
     public class AttackSystem : MonoBehaviour
     {
-        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private GameObject[] bulletPrefabs;
         [SerializeField] private float baseAttackRate;
         [SerializeField] private float attackRate;
         [SerializeField] private bool doubleGun;
+        [SerializeField] private int activeBullet;
 
-        private bool isFiring = false;
+
         private ObjectPool bulletPool;
+        private ObjectPool bulletPool2;
+        private bool isFiring = false;
 
         void Start()
         {
-            bulletPool = new ObjectPool(bulletPrefab);
+            activeBullet = 0;
+            //Debug.Log("bulletPrefab.length: " + bulletPrefabs.Length);
+            bulletPool = new ObjectPool(bulletPrefabs[activeBullet]);
+            bulletPool2 = new ObjectPool(bulletPrefabs[(activeBullet % 3) + 1]); // we have 3 bullet prefabs number should not be bigger than 2
         }
 
         public void Shoot()
@@ -30,10 +37,10 @@ namespace KS.Actor.Attack
                 {
                     Quaternion rotation = Quaternion.identity;
                     rotation.eulerAngles = new Vector3(0f, 0f, 45f);
-                    bulletPool.CreateAtPosition(this.gameObject.transform.position + new Vector3(-1f, 0.5f, 0f), rotation);
-                    bulletPool.CreateAtPosition(this.gameObject.transform.position, Quaternion.identity);
+                    bulletPool2.CreateAtPosition(this.gameObject.transform.position + new Vector3(-1f, 1.5f, 0f), rotation);
+                    bulletPool2.CreateAtPosition(this.gameObject.transform.position, Quaternion.identity);
                     rotation.eulerAngles *= -1;
-                    bulletPool.CreateAtPosition(this.gameObject.transform.position + new Vector3(1f, 0.5f, 0f), rotation);
+                    bulletPool2.CreateAtPosition(this.gameObject.transform.position + new Vector3(1f, 1.5f, 0f), rotation);
                 }
                 else
                 {
@@ -42,7 +49,7 @@ namespace KS.Actor.Attack
 
                 StartCoroutine(Delay(1 / attackRate));
                 isFiring = true;
-                EventHandler.instance.FireOnShotEvent(); // STEP 3 
+                EventHandler.instance.PublishGameEvent(GameEventType.OnBulletShotChanged, new string[0]);
             }
         }
 

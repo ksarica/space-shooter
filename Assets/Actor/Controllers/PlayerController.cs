@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using KS.Actor.Movement;
 using KS.Actor.Attack;
 using UnityEngine.SceneManagement;
 using KS.Actor.Health;
-using KS.Common;
+using KS.Common.GameEvents;
+using System;
+using EventHandler = KS.Common.GameEvents.EventHandler;
 
 namespace KS.Actor.Controllers
 {
@@ -23,11 +23,20 @@ namespace KS.Actor.Controllers
             healthSystem = this.GetComponent<HealthSystem>();
             attackSystem = this.GetComponent<AttackSystem>();
             movementSystem = this.GetComponent<MovementSystem>();
-            EventHandler.instance.OnDeath += OnPlayerDeath;
             GameUIController.Instance.SetScore(0);
-            EndGameController.Instance.SetShotsFired(0);
-            // health sisteminin OnDeath eventine OnPlayerDeath Fonksiyonunu register et.
-            // healthSystem
+            GameUIController.Instance.SetShotsFired(0);
+            EventHandler.instance.Subscribe(GameEventType.OnPlayerDeath, PlayerDeath);
+            EventHandler.instance.PublishGameEvent(GameEventType.OnPlayerHealthChanged, new string[] { healthSystem.HitPoint.ToString() });
+        }
+
+        private void OnDestroy()
+        {
+            EventHandler.instance.Unsubscribe(GameEventType.OnPlayerDeath, PlayerDeath);
+        }
+
+        private void PlayerDeath(string[] eventData)
+        {
+            SceneManager.LoadScene("EndGameMenu");
         }
 
         // Update is called once per frame
@@ -55,18 +64,6 @@ namespace KS.Actor.Controllers
             }
         }
 
-        void OnEnable()
-        {
-            Debug.Log("Enabled");
-        }
-
-        public void OnPlayerDeath(GameObject go)
-        {
-            if (go == this.gameObject)
-            {
-                SceneManager.LoadScene("EndGameMenu");
-            }
-        }
     }
 
 }

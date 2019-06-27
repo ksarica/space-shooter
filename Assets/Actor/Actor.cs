@@ -1,6 +1,8 @@
 ﻿using KS.Actor.Attack;
+using KS.Actor.Controllers;
 using KS.Actor.Health;
 using KS.Common;
+using KS.Common.GameEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,66 +17,68 @@ public class Actor : MonoBehaviour
 
     public Team team;
 
+    public enum ActorType
+    {
+        Player,
+        Asteroid,
+        Bullet,
+        AttackSpeedBonus,
+        TripleGunBonus,
+        Gold
+    }
+
+    public ActorType actorType;
+
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Carptı");
+        Actor subjectA = this;
+        Actor subjectB = collider.gameObject.GetComponent<Actor>();
 
-        // this part is conditions for to get damage
-        HealthSystem collidingHealth = collider.gameObject.GetComponent<HealthSystem>();
-        if (collidingHealth == null) // in our game this will be health of the asteroid that collides player if it's null break the func
+        if (subjectA.actorType == ActorType.Player)
         {
-            return;
-        }
-        HealthSystem health = this.GetComponent<HealthSystem>(); // this means player here
-        if (health == null)
-        {
-            return;
-        }
-        Actor other = collider.gameObject.GetComponent<Actor>(); // this is asteroid
-        if (other == null)
-        {
-            return;
-        }
+            switch (subjectB.actorType)
+            {
+                case ActorType.Asteroid:
+                    subjectB.GetComponent<HealthSystem>().GetHit(float.MaxValue);
+                    EventHandler.instance.PublishGameEvent(GameEventType.OnAsteroidDestroyed, new string[0]);
+                    subjectA.GetComponent<HealthSystem>().GetHit(subjectB.GetComponent<DamageDealer>().Damage);
+                    EventHandler.instance.PublishGameEvent(GameEventType.OnPlayerHealthChanged, new string[] { subjectA.GetComponent<HealthSystem>().HitPoint.ToString() });
+                    if (subjectA.GetComponent<HealthSystem>().HitPoint <= 0)
+                    {
+                        EventHandler.instance.PublishGameEvent(GameEventType.OnPlayerDeath, new string[0]);
+                    }
+                    break;
 
-        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        if (health.CanBeDamaged && damageDealer != null)
-        {
-            if (other.team == this.team)
-            {
-                return;
-            }
-            // if these conditions above provided , we can give damage to our player and the asteroid that collides the player will be gone by giving it maximum damage
-            health.GetHit(damageDealer.Damage);
-            collidingHealth.GetHit(float.MaxValue); // that means the object who collides will die and deal damage to player if player has not enough hp , player also die
-        }
+                case ActorType.AttackSpeedBonus:
+                    subjectA.GetComponent<AttackSystem>().AddPerk(subjectB.GetComponent<Perk>());
+                    subjectB.GetComponent<HealthSystem>().GetHit(float.MaxValue);
 
-        if (collidingHealth.CanBeCollected)
+                    break;
+                case ActorType.TripleGunBonus:
+                    subjectA.GetComponent<AttackSystem>().AddPerk(subjectB.GetComponent<Perk>());
+                    subjectB.GetComponent<HealthSystem>().GetHit(float.MaxValue);
+                    break;
+                case ActorType.Gold:
+                    subjectB.GetComponent<HealthSystem>().GetHit(float.MaxValue);
+                    break;
+            }
+        }
+        else if (subjectA.actorType == ActorType.Asteroid && subjectB != null)
         {
-            Perk perk = other.gameObject.GetComponent<Perk>();
-            if (perk == null)
+            switch (subjectB.actorType)
             {
-                return;
+                case ActorType.Bullet:
+                    subjectB.GetComponent<HealthSystem>().GetHit(float.MaxValue);
+                    subjectA.GetComponent<HealthSystem>().GetHit(subjectB.GetComponent<DamageDealer>().Damage);
+                    EventHandler.instance.PublishGameEvent(GameEventType.OnAsteroidHit, new string[0]);
+                    if (subjectA.GetComponent<HealthSystem>().HitPoint <= 0)
+                    {
+                        EventHandler.instance.PublishGameEvent(GameEventType.OnAsteroidDestroyed, new string[0]);
+                    }
+
+                    break;
+
             }
-            if (other.team != this.team)
-            {
-                return;
-            }
-            AttackSystem attackSystem = this.GetComponent<AttackSystem>(); // this means player here
-            if (attackSystem == null)
-            {
-                return;
-            }
-            Perk perk1 = new Perk(5f, 2f, false);
-            Perk perk2 = new Perk(5f, 1f, true);
-            if (perk.DoubleGunActive == false)
-            {
-                attackSystem.AddPerk(perk1);
-            }
-            else
-            {
-                attackSystem.AddPerk(perk2);
-            }
-            collidingHealth.GetHit(float.MaxValue);
         }
 
     }

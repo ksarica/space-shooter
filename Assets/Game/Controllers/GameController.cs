@@ -1,4 +1,5 @@
 ﻿using KS.Common;
+using KS.Common.GameEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,23 +20,5 @@ public class GameController : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        EventHandler.instance.CoreGameEvents += OnGameEventFired;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void OnGameEventFired(string name)
-    {
-        if (name == "moved")
-        {
-
-        }
-    }
 }

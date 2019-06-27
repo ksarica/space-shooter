@@ -16,7 +16,7 @@ namespace KS.Actor.Movement
 
         private void Start()
         {
-            if(randomSpeed)
+            if (randomSpeed)
             {
                 speed = Random.Range(minSpeed, maxSpeed);
             }
@@ -28,7 +28,7 @@ namespace KS.Actor.Movement
             positionAfter.x = Mathf.Clamp(positionAfter.x, boundaryMin.x, boundaryMax.x);
             positionAfter.y = Mathf.Clamp(positionAfter.y, boundaryMin.y, boundaryMax.y);
             this.gameObject.transform.position = positionAfter;
-            EventHandler.instance.FireCoreGameEvent("moved");
+            //EventHandler.instance.FireCoreGameEvent("moved");
         }
     }
 

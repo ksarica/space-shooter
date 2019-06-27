@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using KS.Common.GameEvents;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,23 +11,16 @@ public class CurrentScoreText : MonoBehaviour
     {
         currentScoreText = this.gameObject.GetComponent<Text>();
         currentScoreText.text = GameUIController.Instance.currentScore.ToString();
-        // register to eventhandler for changes in bestScore 
-        GameUIController.Instance.currentScoreChangeEvent += OnCurrentScoreChanged;
-
+        EventHandler.instance.Subscribe(GameEventType.OnScoreChanged, OnCurrentScoreChanged);
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
-        GameUIController.Instance.currentScoreChangeEvent -= OnCurrentScoreChanged;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
+        EventHandler.instance.Unsubscribe(GameEventType.OnScoreChanged, OnCurrentScoreChanged);
     }
 
-    public void OnCurrentScoreChanged(int currentScore)
+    public void OnCurrentScoreChanged(string[] values)
     {
-        currentScoreText.text = currentScore.ToString();
+        currentScoreText.text = values[0];
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Assets.Common.ObjectPooling;
 using KS.Actor.Health;
 using KS.Actor.Movement;
+using KS.Common.GameEvents;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,11 +30,15 @@ namespace KS.Actor.Controllers
         {
             // below code is for if the bullet or asteroid , if they pass the deathLine , they will be get hit by maxValue .
             float diffBefore = deathLineY - this.transform.position.y; // before: (1,-2) diffBefore: -3 - (-2) = -1
-            this.movementSystem.Move(direction);  
+            this.movementSystem.Move(direction);
             float diffAfter = deathLineY - this.transform.position.y; // after: (1,-3) diffAfter: -3 - (-3) = 0
-            if(diffAfter * diffBefore < 0) // -1 * 0 = 0: false
+            if (diffAfter * diffBefore < 0) // -1 * 0 = 0: false
             {
                 healthSystem.GetHit(float.MaxValue);
+                if (this.GetComponent<Asteroid>() != null)
+                {
+                    EventHandler.instance.PublishGameEvent(GameEventType.OnAsteroidDestroyed, new string[0]);
+                }
             }
         }
 

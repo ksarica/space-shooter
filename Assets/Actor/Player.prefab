@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1618768795488582643}
+  - component: {fileID: 3803855485185465263}
   - component: {fileID: 5269689333638708746}
   - component: {fileID: 7009853007268173673}
   - component: {fileID: 3381229660634357787}
@@ -38,6 +39,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3803855485185465263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618768795488582642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08819a286d5ff9a43995e7eca3fb83e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldEarned: 0
 --- !u!114 &5269689333638708746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,7 +65,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  explosion: {fileID: 100004, guid: bd5a7ae3e8bd4c8499f69e8e45138021, type: 3}
 --- !u!114 &7009853007268173673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,11 +92,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336a246605580314590cb4a9c192ad44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 2672186130086504376, guid: 60c0dc65e191e4b41ab8d0b01aacc964,
-    type: 3}
+  bulletPrefabs:
+  - {fileID: 2672186130086504376, guid: 60c0dc65e191e4b41ab8d0b01aacc964, type: 3}
+  - {fileID: 7925997476294638198, guid: 30e6ae220b4c4104b961486e05a6618f, type: 3}
+  - {fileID: 177275196560975800, guid: d48e792c2917fc541a7772ec86e2360e, type: 3}
   baseAttackRate: 12
   attackRate: 12
   doubleGun: 0
+  activeBullet: 0
 --- !u!114 &7508493255074485593
 MonoBehaviour:
   m_ObjectHideFlags: 0

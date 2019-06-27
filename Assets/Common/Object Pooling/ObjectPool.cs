@@ -23,12 +23,12 @@ namespace Assets.Common.ObjectPooling
             if (available != null)
             {
                 available.ResetPoolObject(position);
-                Debug.Log("Create From Pool");
+                //Debug.Log("Create From Pool");
             }
             else
             {
                 pool.Add(GameObject.Instantiate(prefab, position, rotation));
-                Debug.Log("Create New");
+                //Debug.Log("Create New");
             }
         }
 

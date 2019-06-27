@@ -1,8 +1,5 @@
-﻿using KS.Actor.Attack;
-using KS.Common;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using KS.Common;
+using KS.Common.GameEvents;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,25 +8,21 @@ public class BulletStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventHandler.instance.OnShoot += OnBulletHit; // STEP 4
+        //EventHandler.instance.OnShoot += OnBulletShot; // STEP 4
         //EventHandler.instance.OnHit += OnSuccessfulShot; // STEP 4
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        //EventHandler.instance.Subscribe(GameEventType.OnBulletShotChanged, OnBulletShot);
     }
 
     private void OnDestroy()
     {
-        EventHandler.instance.OnShoot -= OnBulletHit; // STEP 4
+        //EventHandler.instance.OnShoot -= OnBulletShot; // STEP 4
         //EventHandler.instance.OnHit -= OnSuccessfulShot; // STEP 4
+        //EventHandler.instance.Unsubscribe(GameEventType.OnBulletShotChanged, OnBulletShot);
     }
 
-    private void OnBulletHit() // STEP 5
+    private void OnBulletShot(string[] values) // STEP 5
     {
-        EndGameController.Instance.SetShotsFired(EndGameController.Instance.shotsFired + 1);
+        GameUIController.Instance.SetShotsFired(GameUIController.Instance.shotsFired + 1);
     }
 
     private void OnSuccessfulShot()

@@ -5,28 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class EndGameController : MonoBehaviour
 {
-    private static EndGameController instance;
-    public static EndGameController Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = GameObject.FindObjectOfType<EndGameController>();
-                DontDestroyOnLoad(instance);
-            }
-            return instance;
-        }
-    }
+    //private static EndGameController instance;
+    //public static EndGameController Instance
+    //{
+    //    get
+    //    {
+    //        if (instance == null)
+    //        {
+    //            instance = GameObject.FindObjectOfType<EndGameController>();
+    //            DontDestroyOnLoad(instance);
+    //        }
+    //        return instance;
+    //    }
+    //}
 
     //public static EndGameController Instance = null;
 
-    public delegate void OnStatsChanged(int score); // STEP 6
-    public event OnStatsChanged bulletShotEvent; // STEP 6
-    public event OnStatsChanged bulletSuccessfulEvent; // STEP 6
+    //public delegate void OnStatsChanged(int score); // STEP 6
+    //public event OnStatsChanged bulletShotEvent; // STEP 6
+    //public event OnStatsChanged bulletSuccessfulEvent; // STEP 6
 
-    public int shotsFired = 0;
-    public int shotsSuccessful = 0;
+    //public int shotsFired = 0;
+    //public int shotsSuccessful = 0;
 
     //private void Awake() // singleton pattern
     //{
@@ -41,23 +41,23 @@ public class EndGameController : MonoBehaviour
     //    }
     //}
 
-    public void SetShotsFired(int value)
-    {
-        this.shotsFired = value;
-        if (bulletShotEvent != null && bulletShotEvent.GetInvocationList().Length > 0)
-        {
-            bulletShotEvent(shotsFired); // STEP 7
-        }
-    }
+    //public void SetShotsFired(int value)
+    //{
+    //    this.shotsFired = value;
+    //    if (bulletShotEvent != null && bulletShotEvent.GetInvocationList().Length > 0)
+    //    {
+    //        bulletShotEvent(shotsFired); // STEP 7
+    //    }
+    //}
 
-    public void SetShotsSuccessful(int value)
-    {
-        this.shotsSuccessful = value;
-        if (bulletShotEvent != null && bulletShotEvent.GetInvocationList().Length > 0)
-        {
-            bulletShotEvent(shotsSuccessful);
-        }
-    }
+    //public void SetShotsSuccessful(int value)
+    //{
+    //    this.shotsSuccessful = value;
+    //    if (bulletShotEvent != null && bulletShotEvent.GetInvocationList().Length > 0)
+    //    {
+    //        bulletShotEvent(shotsSuccessful);
+    //    }
+    //}
 
     public void BackToMainMenu()
     {
