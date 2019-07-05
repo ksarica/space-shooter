@@ -114,10 +114,8 @@ MonoBehaviour:
   boundaryMin: {x: -10, y: -10, z: 0}
   boundaryMax: {x: 10, y: 20, z: 0}
   speed: 5
-  randomSpeed: 1
-  minSpeed: 4
-  maxSpeed: 8
-  changeDirection: 0
+  minSpeed: 0
+  maxSpeed: 0
 --- !u!114 &6660604867758120759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8f1290e36fd124b8c515db3c2df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeDirection: 0
   direction: {x: 0, y: -1, z: 0}
   deathLineY: -3
 --- !u!135 &4903266531225139718

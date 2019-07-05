@@ -12,6 +12,8 @@ namespace KS.Actor.Controllers
     [RequireComponent(typeof(MovementSystem))]
     public class AIController : MonoBehaviour, IPoolableObject
     {
+        public bool changeDirection = false;
+        private bool directionChanged = false;
         public Vector3 direction;
         [SerializeField] private float deathLineY;
         MovementSystem movementSystem;
@@ -30,7 +32,19 @@ namespace KS.Actor.Controllers
         {
             // below code is for if the bullet or asteroid , if they pass the deathLine , they will be get hit by maxValue .
             float diffBefore = deathLineY - this.transform.position.y; // before: (1,-2) diffBefore: -3 - (-2) = -1
+
+            if (changeDirection && this.GetComponent<Asteroid>() != null)
+            {
+                //Debug.Log(this.name);
+                if (!directionChanged)
+                {
+                    direction.x = Random.Range(-0.1f, 0.1f);
+                    directionChanged = true;
+                }
+            }
+
             this.movementSystem.Move(direction);
+
             float diffAfter = deathLineY - this.transform.position.y; // after: (1,-3) diffAfter: -3 - (-3) = 0
             if (diffAfter * diffBefore < 0) // -1 * 0 = 0: false
             {

@@ -20,7 +20,7 @@ public class SoundFX : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playStarted && !audioSource.isPlaying)
+        if (playStarted && !audioSource.isPlaying)
         {
             Destroy(this.gameObject);
         }

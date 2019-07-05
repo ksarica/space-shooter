@@ -15,9 +15,6 @@ public class GameUIController : MonoBehaviour
     [SerializeField] private int comboMultiplierMax;
     public int ComboMultiplierMax { get => ComboMultiplierMax; }
 
-    [SerializeField] private float comboCountdown;
-    public float ComboCountDown { get => comboCountdown; }
-
     public int currentScore { get; set; } = 0;
     public int bestScore { get; set; } = 0;
 
@@ -114,20 +111,13 @@ public class GameUIController : MonoBehaviour
         if (values[0] == "combo")
         {
             comboMultiplier += 1; // 3 ==> 4
-            comboMultiplier = Mathf.Min(comboMultiplier, 3); // Min(4,3) ==> 3
+            comboMultiplier = Mathf.Min(comboMultiplier, 2); // Min(4,3) ==> 3
         }
     }
 
     private void ResetComboMultiplier(string[] values)
     {
         comboMultiplier = 1;
-    }
-
-    private IEnumerator ResetComboTime(float delayInSeconds)
-    {
-        yield return new WaitForSeconds(delayInSeconds);
-        comboCountdown = 1.25f;
-        yield return null;
     }
 
     public void IncrementGold(string[] values)

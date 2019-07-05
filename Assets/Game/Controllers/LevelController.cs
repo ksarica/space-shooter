@@ -56,26 +56,26 @@ public class LevelController : MonoBehaviour
 
     private void ChangeDifficulty(string[] values)
     {
+        MovementSystem movement = asteroidPrefab.GetComponent<MovementSystem>();
         int score = int.Parse(values[0]);
         Debug.Log("score: " + score + " scoreCounter: " + scoreCounter + " functionCallCounter: " + functionCallCounter);
-        Debug.Log("minSpeed: " + asteroidPrefab.GetComponent<MovementSystem>().MinSpeed + " maxSpeed: " + asteroidPrefab.GetComponent<MovementSystem>().MaxSpeed);
-        Debug.Log("##########################################################");
-        if ((score - scoreCounter) > 25)
+        Debug.Log("minSpeed: " + movement.GetMinSpeed() + " maxSpeed: " + movement.GetMaxSpeed());
+        if ((score - scoreCounter) > 40)
         {
             functionCallCounter++;
-            scoreCounter += 25;
-            if (functionCallCounter % 3 == 0)
+            scoreCounter += 40;
+            if (functionCallCounter % 2 == 0)
             {
-                Debug.Log("Asteroid yönü değişecek: " + asteroidPrefab.GetComponent<MovementSystem>().changeDirection);
-                asteroidPrefab.GetComponent<MovementSystem>().changeDirection = true;
-                Debug.Log("Asteroid yönü değişti: " + asteroidPrefab.GetComponent<MovementSystem>().changeDirection);
+                Debug.Log("Asteroid yönü değişecek: " + asteroidPrefab.GetComponent<AIController>().changeDirection);
+                asteroidPrefab.GetComponent<AIController>().changeDirection = true;
+                Debug.Log("Asteroid yönü değişti: " + asteroidPrefab.GetComponent<AIController>().changeDirection);
             }
             else
             {
-                asteroidPrefab.GetComponent<MovementSystem>().changeDirection = false;
+                asteroidPrefab.GetComponent<AIController>().changeDirection = false;
             }
-            asteroidPrefab.GetComponent<MovementSystem>().MinSpeed *= difficultyRatio;
-            asteroidPrefab.GetComponent<MovementSystem>().MaxSpeed *= difficultyRatio;
+            movement.SetMinSpeed(movement.GetMinSpeed() * difficultyRatio);
+            movement.SetMaxSpeed(movement.GetMaxSpeed() * difficultyRatio);
         }
 
     }
