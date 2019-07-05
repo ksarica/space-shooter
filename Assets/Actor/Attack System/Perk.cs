@@ -13,5 +13,7 @@ public class Perk : MonoBehaviour
     [SerializeField] private bool doubleGunActive;
     public bool DoubleGunActive { get => doubleGunActive; }
 
-    
+    [SerializeField] private float repairPoint;
+    public float RepairPoint { get => repairPoint; }
+
 }

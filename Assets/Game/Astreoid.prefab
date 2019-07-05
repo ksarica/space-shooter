@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minScale: 0.5
-  maxScale: 1.5
+  maxScale: 1.4
 --- !u!114 &1234316837424134550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcb5654ea53472438f4c8b57dac95d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
   actorType: 1
 --- !u!114 &2427752682087336535
 MonoBehaviour:
@@ -83,6 +82,7 @@ MonoBehaviour:
   canBeDamaged: 1
   canBeCollected: 0
   deathFX: {fileID: 2284945083753283304, guid: 849f318b69f902d40b4d34b2fb35613c, type: 3}
+  deathSoundFX: {fileID: 0}
 --- !u!114 &4982667063164163155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae8e20289290e9408a3a8e4e2420d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 20
+  minDamage: 10
+  maxDamage: 25
+  randomDamage: 1
 --- !u!114 &2024478257720712785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,9 +114,10 @@ MonoBehaviour:
   boundaryMin: {x: -10, y: -10, z: 0}
   boundaryMax: {x: 10, y: 20, z: 0}
   speed: 5
-  minSpeed: 5
-  maxSpeed: 10
   randomSpeed: 1
+  minSpeed: 4
+  maxSpeed: 8
+  changeDirection: 0
 --- !u!114 &6660604867758120759
 MonoBehaviour:
   m_ObjectHideFlags: 0

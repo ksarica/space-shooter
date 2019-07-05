@@ -23,8 +23,6 @@ namespace KS.Actor.Controllers
             healthSystem = this.GetComponent<HealthSystem>();
             attackSystem = this.GetComponent<AttackSystem>();
             movementSystem = this.GetComponent<MovementSystem>();
-            GameUIController.Instance.SetScore(0);
-            GameUIController.Instance.SetShotsFired(0);
             EventHandler.instance.Subscribe(GameEventType.OnPlayerDeath, PlayerDeath);
             EventHandler.instance.PublishGameEvent(GameEventType.OnPlayerHealthChanged, new string[] { healthSystem.HitPoint.ToString() });
         }

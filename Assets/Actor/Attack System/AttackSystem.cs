@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KS.Common.GameEvents;
 using EventHandler = KS.Common.GameEvents.EventHandler;
+using KS.Actor.Controllers;
 
 namespace KS.Actor.Attack
 {
@@ -16,17 +17,19 @@ namespace KS.Actor.Attack
         [SerializeField] private bool doubleGun;
         [SerializeField] private int activeBullet;
 
-
+        // maybe you could create an array for these 
         private ObjectPool bulletPool;
         private ObjectPool bulletPool2;
+        private ObjectPool bulletPool3;
         private bool isFiring = false;
 
         void Start()
         {
             activeBullet = 0;
             //Debug.Log("bulletPrefab.length: " + bulletPrefabs.Length);
-            bulletPool = new ObjectPool(bulletPrefabs[activeBullet]);
-            bulletPool2 = new ObjectPool(bulletPrefabs[(activeBullet % 3) + 1]); // we have 3 bullet prefabs number should not be bigger than 2
+            bulletPool = new ObjectPool(bulletPrefabs[activeBullet % 3]); // values that we can assign: 0, 1 and 2 
+            bulletPool2 = new ObjectPool(bulletPrefabs[(activeBullet + 1) % 3]); // we have 3 bullet prefabs number should not be bigger than 2
+            bulletPool3 = new ObjectPool(bulletPrefabs[(activeBullet + 2) % 3]);
         }
 
         public void Shoot()
@@ -36,11 +39,14 @@ namespace KS.Actor.Attack
                 if (doubleGun)
                 {
                     Quaternion rotation = Quaternion.identity;
-                    rotation.eulerAngles = new Vector3(0f, 0f, 45f);
-                    bulletPool2.CreateAtPosition(this.gameObject.transform.position + new Vector3(-1f, 1.5f, 0f), rotation);
-                    bulletPool2.CreateAtPosition(this.gameObject.transform.position, Quaternion.identity);
+                    rotation.eulerAngles = new Vector3(0f, 0f, 30f);
+
+                    bulletPool2.CreateAtPosition(this.gameObject.transform.position + new Vector3(-0.5f, 0.5f, 0f), rotation);
+
+                    bulletPool.CreateAtPosition(this.gameObject.transform.position, Quaternion.identity);
+
                     rotation.eulerAngles *= -1;
-                    bulletPool2.CreateAtPosition(this.gameObject.transform.position + new Vector3(1f, 1.5f, 0f), rotation);
+                    bulletPool3.CreateAtPosition(this.gameObject.transform.position + new Vector3(0.5f, 0.5f, 0f), rotation);
                 }
                 else
                 {

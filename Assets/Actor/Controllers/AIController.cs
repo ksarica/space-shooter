@@ -12,7 +12,7 @@ namespace KS.Actor.Controllers
     [RequireComponent(typeof(MovementSystem))]
     public class AIController : MonoBehaviour, IPoolableObject
     {
-        [SerializeField] private Vector3 direction;
+        public Vector3 direction;
         [SerializeField] private float deathLineY;
         MovementSystem movementSystem;
         HealthSystem healthSystem;
@@ -37,7 +37,7 @@ namespace KS.Actor.Controllers
                 healthSystem.GetHit(float.MaxValue);
                 if (this.GetComponent<Asteroid>() != null)
                 {
-                    EventHandler.instance.PublishGameEvent(GameEventType.OnAsteroidDestroyed, new string[0]);
+                    EventHandler.instance.PublishGameEvent(GameEventType.OnAsteroidDestroyed, new string[] { "1" });
                 }
             }
         }
@@ -47,10 +47,10 @@ namespace KS.Actor.Controllers
             healthSystem.ResetHitPoint();
             this.gameObject.transform.position = position;
             this.gameObject.SetActive(true);
-            AudioSource audioSource = this.GetComponent<AudioSource>();
-            if (audioSource != null)
+            ActorSoundPlayer actorSoundPlayer = this.GetComponent<ActorSoundPlayer>();
+            if (actorSoundPlayer != null)
             {
-                audioSource.Play();
+                actorSoundPlayer.PlayOnStart();
             }
         }
     }

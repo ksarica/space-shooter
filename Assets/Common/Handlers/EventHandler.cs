@@ -21,7 +21,11 @@ namespace KS.Common.GameEvents
         OnPowerUpCollected, // Give something to player
         OnPowerUpActive, 
         OnGoldCollected, // Update gold value of the player
-        OnGoldScoreChanged 
+        OnGoldScoreChanged,
+        OnDirectionChangeRequired,
+        OnConvertScoreToGoldTime,
+        OnResetComboMultiplierRequired,
+        OnDifficultyChange
     }
 
     public class EventHandler : MonoBehaviour

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6575392909167969857}
   - component: {fileID: 6514303927820642999}
   - component: {fileID: 558070319261217730}
+  - component: {fileID: 8994887322098999124}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 2672186130086504376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.8, z: 1}
   m_Children:
   - {fileID: 2672186130669445853}
   m_Father: {fileID: 0}
@@ -51,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcb5654ea53472438f4c8b57dac95d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
   actorType: 2
 --- !u!114 &5046723783624981545
 MonoBehaviour:
@@ -84,6 +84,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
+  minDamage: 0
+  maxDamage: 0
+  randomDamage: 0
 --- !u!114 &1968670581935934691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +157,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 733a0ff7727334749a0381b7092162b3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 93fba0b1bf5014543918fa775911b6a3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -240,6 +243,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8994887322098999124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2672186130086504376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d009300576c3c048b49dfffb61924b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldPlayOnStart: 1
+  shouldPlayOnDeath: 0
 --- !u!1 &2672186130669445850
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +314,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: edfb75e244e0f8b46a48d9b45ca2963e, type: 2}
+  - {fileID: 2100000, guid: 564b0805fab30e247bbd9d32801dead2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

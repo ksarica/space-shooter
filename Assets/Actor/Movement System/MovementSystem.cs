@@ -10,9 +10,14 @@ namespace KS.Actor.Movement
         [SerializeField] private Vector3 boundaryMin; // game edges
         [SerializeField] private Vector3 boundaryMax; // game edges
         [SerializeField] private float speed;
-        [SerializeField] private float minSpeed;
-        [SerializeField] private float maxSpeed;
         [SerializeField] private bool randomSpeed = false;
+
+        public float MinSpeed { get => minSpeed; set => minSpeed = value; }
+        [SerializeField] private float minSpeed;
+        public float MaxSpeed { get => maxSpeed; set => maxSpeed = value; }
+        [SerializeField] private float maxSpeed;
+
+        public bool changeDirection = false;
 
         private void Start()
         {
@@ -23,11 +28,17 @@ namespace KS.Actor.Movement
         }
         public void Move(Vector3 displacement)
         {
-
             Vector3 positionAfter = this.gameObject.transform.position + (displacement * Time.deltaTime * speed); // check if the next position is inside of our game boundary if not assign the next position to maxboundaries
             positionAfter.x = Mathf.Clamp(positionAfter.x, boundaryMin.x, boundaryMax.x);
             positionAfter.y = Mathf.Clamp(positionAfter.y, boundaryMin.y, boundaryMax.y);
-            this.gameObject.transform.position = positionAfter;
+            if (changeDirection)
+            {
+                this.gameObject.transform.position = positionAfter * Mathf.Sin(Time.time) * -1;
+            }
+            else
+            {
+                this.gameObject.transform.position = positionAfter;
+            }
             //EventHandler.instance.FireCoreGameEvent("moved");
         }
     }

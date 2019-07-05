@@ -56,14 +56,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4259cd1318cf5a4dac77bca57394a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 5522681602893146682, guid: cba8227b749733c4e807bd7fe8a1c864,
-    type: 3}
   goldPrefab: {fileID: 1374663754859792077, guid: dc0c6ea9bc5f21a44badaef87042d62d,
     type: 3}
-  powerUpPrefab1: {fileID: 6511726859452697291, guid: 02978d5646fc73f49a755c68d90c379c,
+  asteroidPrefab: {fileID: 5522681602893146682, guid: cba8227b749733c4e807bd7fe8a1c864,
     type: 3}
-  powerUpPrefab2: {fileID: 6511726859452697291, guid: 469fd20fd7d4b02419fc59cafb846aed,
+  powerUpRateSpeed: {fileID: 6511726859452697291, guid: 02978d5646fc73f49a755c68d90c379c,
     type: 3}
+  powerUpDoubleGun: {fileID: 6511726859452697291, guid: 469fd20fd7d4b02419fc59cafb846aed,
+    type: 3}
+  powerUpRepair: {fileID: 6511726859452697291, guid: ac6d9f54b2f141e4ba1f95dc936bff70,
+    type: 3}
+  difficultyRatio: 1.05
   delayInSeconds: 1.5
   spawnIntervalInSeconds: 1
   spawnRange:
