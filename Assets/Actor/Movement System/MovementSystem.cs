@@ -15,41 +15,36 @@ namespace KS.Actor.Movement
         [SerializeField] private float minSpeed;
         [SerializeField] private float maxSpeed;
 
-        public float GetMinSpeed()
-        {
-            return this.minSpeed;
-        }
-
-        public float GetMaxSpeed()
-        {
-            return this.maxSpeed;
-        }
-
-        public void SetMinSpeed(float value)
-        {
-            minSpeed = value;
-        }
-
-        public void SetMaxSpeed(float value)
-        {
-            maxSpeed = value;
-        }
+        public float MinSpeed { get => minSpeed; set => minSpeed = value; }
+        public float MaxSpeed { get => maxSpeed; set => maxSpeed = value; }
 
         private void Start()
         {
-            if (this.gameObject.GetComponent<Asteroid>() != null)
+            if (this.gameObject.GetComponent<Asteroid>() != null) // only asteroids will get random speed 
             {
-                minSpeed = 4;
-                maxSpeed = 8;
-                speed = Random.Range(minSpeed, maxSpeed);
+                //minSpeed = 4;
+                //maxSpeed = 8;
+                SetSpeed(1f);
             }
         }
+
         public void Move(Vector3 displacement)
         {
             Vector3 positionAfter = this.gameObject.transform.position + (displacement * Time.deltaTime * speed); // check if the next position is inside of our game boundary if not assign the next position to maxboundaries
             positionAfter.x = Mathf.Clamp(positionAfter.x, boundaryMin.x, boundaryMax.x);
             positionAfter.y = Mathf.Clamp(positionAfter.y, boundaryMin.y, boundaryMax.y);
             this.gameObject.transform.position = positionAfter;
+        }
+
+        public void SetSpeed(float ratio)
+        {
+            minSpeed *= ratio;
+            maxSpeed *= ratio;
+
+            minSpeed = Mathf.Min(minSpeed, 12f);
+            maxSpeed = Mathf.Min(maxSpeed, 25f);
+
+            speed = Random.Range(minSpeed, maxSpeed);
         }
     }
 

@@ -13,7 +13,6 @@ namespace KS.Actor.Controllers
     public class AIController : MonoBehaviour, IPoolableObject
     {
         public bool changeDirection = false;
-        private bool directionChanged = false;
         public Vector3 direction;
         [SerializeField] private float deathLineY;
         MovementSystem movementSystem;
@@ -35,14 +34,9 @@ namespace KS.Actor.Controllers
 
             if (changeDirection && this.GetComponent<Asteroid>() != null)
             {
-                //Debug.Log(this.name);
-                if (!directionChanged)
-                {
-                    direction.x = Random.Range(-0.1f, 0.1f);
-                    directionChanged = true;
-                }
+                Debug.Log(this.name + "yönü değiştirilecek !");
+                direction.x = Random.Range(-0.1f, 0.1f);
             }
-
             this.movementSystem.Move(direction);
 
             float diffAfter = deathLineY - this.transform.position.y; // after: (1,-3) diffAfter: -3 - (-3) = 0

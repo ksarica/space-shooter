@@ -66,7 +66,7 @@ MonoBehaviour:
     type: 3}
   powerUpRepair: {fileID: 6511726859452697291, guid: ac6d9f54b2f141e4ba1f95dc936bff70,
     type: 3}
-  difficultyRatio: 1.05
+  difficultyRatio: 1.5
   delayInSeconds: 1.5
   spawnIntervalInSeconds: 1
   spawnRange:

@@ -114,8 +114,8 @@ MonoBehaviour:
   boundaryMin: {x: -10, y: -10, z: 0}
   boundaryMax: {x: 10, y: 20, z: 0}
   speed: 5
-  minSpeed: 0
-  maxSpeed: 0
+  minSpeed: 4
+  maxSpeed: 8
 --- !u!114 &6660604867758120759
 MonoBehaviour:
   m_ObjectHideFlags: 0

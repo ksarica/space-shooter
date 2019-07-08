@@ -40,8 +40,8 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventHandler.instance.Subscribe(GameEventType.OnScoreChanged, ChangeDifficulty);
         asteroidPool = new ObjectPool(asteroidPrefab);
+        EventHandler.instance.Subscribe(GameEventType.OnScoreChanged, ChangeDifficulty);
         powerUpRateSpeedPool = new ObjectPool(powerUpRateSpeed);
         powerUpDoubleGunPool = new ObjectPool(powerUpDoubleGun);
         powerUpRepairPool = new ObjectPool(powerUpRepair);
@@ -59,7 +59,7 @@ public class LevelController : MonoBehaviour
         MovementSystem movement = asteroidPrefab.GetComponent<MovementSystem>();
         int score = int.Parse(values[0]);
         Debug.Log("score: " + score + " scoreCounter: " + scoreCounter + " functionCallCounter: " + functionCallCounter);
-        Debug.Log("minSpeed: " + movement.GetMinSpeed() + " maxSpeed: " + movement.GetMaxSpeed());
+        Debug.Log("minSpeed: " + movement.MinSpeed + " maxSpeed: " + movement.MaxSpeed);
         if ((score - scoreCounter) > 40)
         {
             functionCallCounter++;
@@ -74,8 +74,7 @@ public class LevelController : MonoBehaviour
             {
                 asteroidPrefab.GetComponent<AIController>().changeDirection = false;
             }
-            movement.SetMinSpeed(movement.GetMinSpeed() * difficultyRatio);
-            movement.SetMaxSpeed(movement.GetMaxSpeed() * difficultyRatio);
+            movement.SetSpeed(difficultyRatio);
         }
 
     }
