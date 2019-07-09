@@ -14,6 +14,7 @@ namespace KS.Actor.Controllers
     {
         public bool changeDirection = false;
         public Vector3 direction;
+        private Vector3 randomDirection;
         [SerializeField] private float deathLineY;
         MovementSystem movementSystem;
         HealthSystem healthSystem;
@@ -22,6 +23,7 @@ namespace KS.Actor.Controllers
         void Start()
         {
             direction.Normalize();
+            randomDirection.Normalize();
             movementSystem = this.GetComponent<MovementSystem>();
             healthSystem = this.GetComponent<HealthSystem>();
         }
@@ -35,9 +37,14 @@ namespace KS.Actor.Controllers
             if (changeDirection && this.GetComponent<Asteroid>() != null)
             {
                 Debug.Log(this.name + "yönü değiştirilecek !");
-                direction.x = Random.Range(-0.1f, 0.1f);
+                randomDirection.x = Random.Range(-1f, 1f);
+                randomDirection.y = -1f;
+                this.movementSystem.Move(randomDirection);
             }
-            this.movementSystem.Move(direction);
+            else
+            {
+                this.movementSystem.Move(direction);
+            }
 
             float diffAfter = deathLineY - this.transform.position.y; // after: (1,-3) diffAfter: -3 - (-3) = 0
             if (diffAfter * diffBefore < 0) // -1 * 0 = 0: false

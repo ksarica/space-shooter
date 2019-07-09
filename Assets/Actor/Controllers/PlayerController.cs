@@ -6,6 +6,7 @@ using KS.Actor.Health;
 using KS.Common.GameEvents;
 using System;
 using EventHandler = KS.Common.GameEvents.EventHandler;
+using Assets.Common;
 
 namespace KS.Actor.Controllers
 {
@@ -17,6 +18,7 @@ namespace KS.Actor.Controllers
         AttackSystem attackSystem;
         MovementSystem movementSystem;
         HealthSystem healthSystem;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -40,27 +42,36 @@ namespace KS.Actor.Controllers
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (KSInput.GetPlatformType() == KSInput.PlatformType.PC)
             {
-                movementSystem.Move(Vector3.left);
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    movementSystem.Move(Vector3.left);
+                }
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    movementSystem.Move(Vector3.right);
+                }
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    movementSystem.Move(Vector3.down);
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    movementSystem.Move(Vector3.up);
+                }
             }
-            if (Input.GetKey(KeyCode.RightArrow))
+
+            if (KSInput.HasInput())
             {
-                movementSystem.Move(Vector3.right);
+                KSInput.SetStartPosition();
+                movementSystem.Move(KSInput.GetDeltaPosition());
             }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                movementSystem.Move(Vector3.down);
-            }
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                movementSystem.Move(Vector3.up);
-            }
-            if (Input.GetKey(KeyCode.Space))
-            {
-                attackSystem.Shoot();
-            }
+
+            attackSystem.Shoot();
         }
+
+
 
     }
 
