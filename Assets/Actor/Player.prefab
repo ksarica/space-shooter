@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcb5654ea53472438f4c8b57dac95d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
   actorType: 0
 --- !u!114 &7009853007268173673
 MonoBehaviour:
@@ -68,6 +67,7 @@ MonoBehaviour:
   canBeDamaged: 1
   canBeCollected: 0
   deathFX: {fileID: 2284945083753283304, guid: 849f318b69f902d40b4d34b2fb35613c, type: 3}
+  deathSoundFX: {fileID: 0}
 --- !u!114 &3381229660634357787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,10 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundaryMin: {x: -4, y: -1.4, z: 0}
   boundaryMax: {x: 4, y: 13.5, z: 0}
-  speed: 17
+  speed: 20
   minSpeed: 0
   maxSpeed: 0
-  randomSpeed: 0
 --- !u!114 &3985866197469110206
 MonoBehaviour:
   m_ObjectHideFlags: 0

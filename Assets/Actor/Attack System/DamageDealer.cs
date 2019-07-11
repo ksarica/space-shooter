@@ -14,7 +14,7 @@ public class DamageDealer : MonoBehaviour
     {
         if (randomDamage)
         {
-            damage = Mathf.Ceil(Random.Range(minDamage, maxDamage));
+            damage = Mathf.Ceil(Random.Range(minDamage, maxDamage)); // don't accept the number like 100.12 just take 100
         }
     }
 

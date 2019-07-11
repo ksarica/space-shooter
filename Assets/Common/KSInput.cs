@@ -13,6 +13,7 @@ namespace Assets.Common
         private static Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
         private static float width = (float)Screen.width / 2.0f;
         private static float height = (float)Screen.height / 2.0f;
+        private static Vector3 inputStartPosition;
 
         public enum InputPhase
         {
@@ -40,7 +41,6 @@ namespace Assets.Common
 
             return false;
         }
-        private static Vector3 inputStartPosition;
         public static InputPhase GetPhase()
         {
 
@@ -75,8 +75,6 @@ namespace Assets.Common
                         return InputPhase.Moved;
                     }
                     return InputPhase.None;
-
-
             }
             return InputPhase.None;
         }
@@ -108,6 +106,7 @@ namespace Assets.Common
                 case PlatformType.Mobile:
                     Touch touch = Input.GetTouch(0);
                     Vector2 posMobile = touch.position;
+                    //Vector2 posMobile = Camera.main.ScreenToWorldPoint(touch.position);
                     posMobile.x = (posMobile.x - width) / width;
                     posMobile.y = (posMobile.y - height) / height;
                     position = new Vector3(posMobile.x, posMobile.y, 0.0f);

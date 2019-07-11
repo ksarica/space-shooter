@@ -36,7 +36,7 @@ namespace KS.Actor.Controllers
 
             if (changeDirection && this.GetComponent<Asteroid>() != null)
             {
-                Debug.Log(this.name + "yönü değiştirilecek !");
+                //Debug.Log(this.name + "yönü değiştirilecek !");
                 randomDirection.x = Random.Range(-1f, 1f);
                 randomDirection.y = -1f;
                 this.movementSystem.Move(randomDirection);
