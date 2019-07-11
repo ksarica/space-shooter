@@ -11,6 +11,7 @@ namespace KS.Actor.Movement
         [SerializeField] private Vector3 boundaryMax; // game edges
 
         [SerializeField] private float speed;
+        public float Speed { get => speed; }
 
         [SerializeField] private float minSpeed;
         [SerializeField] private float maxSpeed;

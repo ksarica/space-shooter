@@ -18,7 +18,6 @@ public class LevelController : MonoBehaviour
     [SerializeField] private GameObject powerUpRateSpeed;
     [SerializeField] private GameObject powerUpDoubleGun;
     [SerializeField] private GameObject powerUpRepair;
-    [SerializeField] private float difficultyRatio;
     [SerializeField] private float delayInSeconds;
     [SerializeField] private float spawnIntervalInSeconds;
     [SerializeField] private SpawnRange spawnRange;
@@ -27,6 +26,9 @@ public class LevelController : MonoBehaviour
     private ObjectPool powerUpDoubleGunPool;
     private ObjectPool powerUpRepairPool;
     private ObjectPool goldPool;
+
+    [SerializeField] private float difficultyRatio;
+    public float DifficultyRatio { get => difficultyRatio; set => difficultyRatio = value; }
     private int scoreCounter = 0;
     private int functionCallCounter = 0;
 
@@ -40,6 +42,7 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        difficultyRatio = 1f;
         asteroidPool = new ObjectPool(asteroidPrefab);
         EventHandler.instance.Subscribe(GameEventType.OnScoreChanged, ChangeDifficulty);
         powerUpRateSpeedPool = new ObjectPool(powerUpRateSpeed);
@@ -58,23 +61,25 @@ public class LevelController : MonoBehaviour
     {
         MovementSystem movement = asteroidPrefab.GetComponent<MovementSystem>();
         int score = int.Parse(values[0]);
-        Debug.Log("score: " + score + " scoreCounter: " + scoreCounter + " functionCallCounter: " + functionCallCounter);
-        Debug.Log("minSpeed: " + movement.MinSpeed + " maxSpeed: " + movement.MaxSpeed);
+        //Debug.Log("score: " + score + " scoreCounter: " + scoreCounter + " functionCallCounter: " + functionCallCounter);
+        //Debug.Log("minSpeed: " + movement.MinSpeed + " maxSpeed: " + movement.MaxSpeed);
         if ((score - scoreCounter) > 40)
         {
+            difficultyRatio += 0.05f;
+            Debug.Log("Difficulty Ratio Degeri Degisti: " + difficultyRatio);
             functionCallCounter++;
             scoreCounter += 40;
             if (functionCallCounter % 2 == 0)
             {
-                Debug.Log("Asteroid yönü değişecek: " + asteroidPrefab.GetComponent<AIController>().changeDirection);
+                //Debug.Log("Asteroid yönü değişecek: " + asteroidPrefab.GetComponent<AIController>().changeDirection);
                 asteroidPrefab.GetComponent<AIController>().changeDirection = true;
-                Debug.Log("Asteroid yönü değişti: " + asteroidPrefab.GetComponent<AIController>().changeDirection);
+                //Debug.Log("Asteroid yönü değişti: " + asteroidPrefab.GetComponent<AIController>().changeDirection);
             }
             else
             {
                 asteroidPrefab.GetComponent<AIController>().changeDirection = false;
             }
-            movement.SetSpeed(difficultyRatio);
+            //movement.SetSpeed(difficultyRatio);
         }
 
     }
