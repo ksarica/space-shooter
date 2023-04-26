@@ -39,6 +39,7 @@ public static class SceneViewUICamera
 		}
 	}
 
+	[Obsolete]
 	static SceneViewUICamera()
 	{
 		EditorApplication.update += Update;
